@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 
 from flask_learning import db
 from flask_learning.models import Post
-from flask_learning.posts.forms import PostForm
+from flask_learning.posts.forms import PostForm, SearchForm
 
 posts = Blueprint('posts', __name__)
 
@@ -56,3 +56,16 @@ def delete_post(post_id):
     db.session.commit()
     flash("Your posts has been deleted!", "success")
     return redirect(url_for('main.home_page'))
+
+
+@posts.route('/search', methods=['GET', 'POST'])
+def search_post():
+    form = SearchForm()
+    post = Post.query
+    if form.validate_on_submit():
+        post_searched = form.searched.data
+
+        posts = post.filter(Post.content.like('%' + post_searched + '%'))
+        posts = posts.order_by(Post.title).all()
+
+    return render_template("search.html", post_searched=post_searched, form=form, posts=posts)
