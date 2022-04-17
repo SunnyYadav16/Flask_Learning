@@ -24,7 +24,7 @@ def new_post():
 @posts.route('/post/<int:post_id>')
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('posts.html', title='Post.title', post=post)
+    return render_template('post.html', title='Post.title', post=post)
 
 
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
@@ -58,14 +58,3 @@ def delete_post(post_id):
     return redirect(url_for('main.home_page'))
 
 
-@posts.route('/search', methods=['GET', 'POST'])
-def search_post():
-    form = SearchForm()
-    post = Post.query
-    if form.validate_on_submit():
-        post_searched = form.searched.data
-
-        posts = post.filter(Post.content.like('%' + post_searched + '%'))
-        posts = posts.order_by(Post.title).all()
-
-    return render_template("search.html", post_searched=post_searched, form=form, posts=posts)
