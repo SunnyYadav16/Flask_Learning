@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 
 from flask_learning import db
 from flask_learning.models import Post
-from flask_learning.posts.forms import PostForm, SearchForm
+from flask_learning.posts.forms import PostForm
 
 posts = Blueprint('posts', __name__)
 

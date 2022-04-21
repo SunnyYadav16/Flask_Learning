@@ -1,0 +1,34 @@
+<a class="btn btn-outline-success" style="margin-left:10px;" type="submit" data-bs-toggle='modal' data-bs-target='#searchModal'>Search</a>
+
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="searchModalLabel">Search in the Website</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+            <div class="modal-body">
+                <form action="{{ url_for("main.search") }}" method="post">
+
+                  Search by Post: <input class="form-control me-2"  style="width: 300px; margin-bottom: 10px;" type="search" name="searched_post" placeholder="Search" aria-label="Search"/>
+                  Search by Author: <input class="form-control me-2"  style="width: 300px; margin-bottom: 10px;" type="search" name="searched_author" placeholder="Search" aria-label="Search"/>
+                  Select start date: {{ form.startdate(class='datepicker', style="margin-bottom: 10px;") }}
+                    <br>
+                  Select end date: {{ form.enddate(class='datepicker', required=False) }}
+                    <br><br>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-danger" value="Search"/>
+                </form>
+            </div>
+
+{#            <div class="modal-footer">#}
+{#              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
+{#              <form action="{{ url_for("main.search") }}" method="post">#}
+{#                  {{ form.hidden_tag() }}#}
+{#                  <input type="submit" class="btn btn-danger" value="Search"/>#}
+{#              </form>#}
+{#            </div>#}
+        </div>
+      </div>
+    </div>

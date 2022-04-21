@@ -15,6 +15,7 @@
     {% else %}
         <title>Flask Blog</title>
     {% endif %}
+
 </head>
 <body>
 
@@ -22,7 +23,7 @@
 
     <main role="main" class="container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
@@ -34,8 +35,18 @@
             {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4">
-          <div class="content-section">
+
+      <div class="col-md-6">
+{#        <form class="d-flex" method="post">#}
+{#          <input class="form-control me-2"  style="width: 300px;" type="search" name="searched" placeholder="Search" aria-label="Search"/>#}
+{#          <button class="btn btn-outline-success" type="submit">Search Text</button>#}
+{#          <a class="btn btn-outline-success" style="margin-left:10px;" type="submit" href="{{ url_for("date_time_picker.select_date_time") }}">Search by Date</a>#}
+           <a class="btn btn-outline-success" style="margin-left:10px;" type="submit" data-bs-toggle='modal' data-bs-target='#searchModal'>Search</a>
+{#        </form>#}
+
+        <br>
+{#        <div class="col-md-2">#}
+        <div class="content-section">
             <h3>Our Sidebar</h3>
             <p class='text-muted'>You can put any information here you'd like.
               <ul class="list-group">
@@ -45,10 +56,41 @@
                 <li class="list-group-item list-group-item-light">etc</li>
               </ul>
             </p>
-          </div>
+{#          </div>#}
         </div>
       </div>
+      </div>
     </main>
+
+    {% if form1 %}
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="searchModalLabel">Search in the Website</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+            <div class="modal-body">
+                <form action="{{ url_for("main.search") }}" method="post">
+                    {{ form1.hidden_tag() }}
+                  Search by Post's Title: <input class="form-control me-2"  style="width: 300px; margin-bottom: 10px;" type="search" name="searched_post_by_title" placeholder="Search" aria-label="Search"/>
+                  Search by Post's Content: <input class="form-control me-2"  style="width: 300px; margin-bottom: 10px;" type="search" name="searched_post_by_content" placeholder="Search" aria-label="Search"/>
+                  Search by Author: <input class="form-control me-2"  style="width: 300px; margin-bottom: 10px;" type="search" name="searched_author" placeholder="Search" aria-label="Search"/>
+                  Select start date: {{ form1.startdate(class='datepicker', style="margin-bottom: 10px;") }}
+                  <br>
+                  Select end date: {{ form1.enddate(class='datepicker', required=False) }}
+                    <br><br>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-danger" value="Search"/>
+                </form>
+{#                 {{ form.start_date(class='datepicker') }}{{ form.hidden_tag() }}#}
+{#                {{ form.end_date.label }} {{ form.end_date(class='datepicker') }}{{ form.hidden_tag() }}#}
+            </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
 
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

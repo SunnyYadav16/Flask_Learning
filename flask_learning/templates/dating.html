@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <form action="" method="post">
+
+                  {{ form.start_date.label }} {{ form.start_date(class='datepicker') }}{{ form.hidden_tag() }}
+                  {{ form.end_date.label }} {{ form.end_date(class='datepicker') }}{{ form.hidden_tag() }}
+
+                  {{ form.submit }}
+    </form>
+{% endblock content%}

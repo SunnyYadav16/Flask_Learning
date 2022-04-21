@@ -2,6 +2,10 @@
 
 {% block content %}
 
+    <h2>Result dates</h2>
+    Start date : {{ session['startdate'] }}
+    End date : {{ session['enddate'] }}
+
     {% for post in posts %}
         <article class="d-flex content-section">
             <img class="rounded-circle article-img" src="{{url_for('static', filename='profile_pics/' + post.author.image_file)}}" alt="">
@@ -15,5 +19,4 @@
           </div>
         </article>
     {% endfor %}
-
-{% endblock content %}
+{% endblock content%}

@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"User('{self.id}','{self.username}', '{self.email}', '{self.image_file}')"
 
     def get_token(self, expires_sec=300):
         serial = serializer(current_app.config['SECRET_KEY'], expires_in=expires_sec)

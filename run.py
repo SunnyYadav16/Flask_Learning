@@ -1,4 +1,4 @@
-from flask_learning import create_app
+from flask_learning import create_app, db
 
 app = create_app()
 
